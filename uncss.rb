@@ -7,6 +7,10 @@ Jekyll::Hooks.register(:site, :post_write) do |site|
         raise "Missing option 'uncss.stylesheets'!"
     end
 
+    if config.key?('envs') and !config['envs'].include?(ENV['JEKYLL_ENV'])
+        next
+    end
+
     files = config.fetch('files', ['**/*.html']).collect {|x| File.join(site.dest, x)}
 
     config['stylesheets'].each {|s|
