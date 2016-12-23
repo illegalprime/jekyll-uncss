@@ -22,6 +22,13 @@ module UncssWrapper
 
         begin
             result = `uncss --uncssrc '#{tempfileUncssrc.path}' '#{files.join("' '")}' 2>&1`
+            if $?.exitstatus == 0
+                puts "pwd: #{`pwd`}"
+                puts "cmd: uncss --uncssrc '#{tempfileUncssrc.path}' '#{files.join("' '")}' 2>&1"
+                puts "uncssrc: #{uncssrc.to_json}"
+                puts "out: #{result}"
+                raise Error, 'uncss failed'
+            end
         rescue Exception => e
             raise Error, "uncss failed: #{e} :: #{result}"
         ensure
