@@ -22,7 +22,7 @@ module UncssWrapper
 
         begin
             result = `uncss --uncssrc '#{tempfileUncssrc.path}' '#{files.join("' '")}' 2>&1`
-            if $?.exitstatus == 0
+            if $?.exitstatus != 0
                 puts "pwd: #{`pwd`}"
                 puts "cmd: uncss --uncssrc '#{tempfileUncssrc.path}' '#{files.join("' '")}' 2>&1"
                 puts "uncssrc: #{uncssrc.to_json}"
